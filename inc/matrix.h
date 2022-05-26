@@ -20,18 +20,19 @@ namespace mt {
 
 		template <class T> friend Matrix<T> operator+ (const Matrix<T>& leftM, const Matrix<T>& rightM);
 		template <class T> friend Matrix<T> operator+ (const T& leftEl, const Matrix<T>& rightM);
-		template <class T> friend Matrix<T> operator+ (const const Matrix<T>& leftM, T& rightEl);
+		template <class T> friend Matrix<T> operator+ (const Matrix<T>& leftM, const T& rightEl);
 
 		template <class T> friend Matrix<T> operator- (const Matrix<T>& leftM, const Matrix<T>& rightM);
 		template <class T> friend Matrix<T> operator- (const T& leftEl, const Matrix<T>& rightM);
-		template <class T> friend Matrix<T> operator- (const const Matrix<T>& leftM, T& rightEl);
+		template <class T> friend Matrix<T> operator- (const Matrix<T>& leftM, const T& rightEl);
 
 		template <class T> friend Matrix<T> operator* (const Matrix<T>& leftM, const Matrix<T>& rightM);
 		template <class T> friend Matrix<T> operator* (const T& leftEl, const Matrix<T>& rightM);
-		template <class T> friend Matrix<T> operator* (const const Matrix<T>& leftM, T& rightEl);
+		template <class T> friend Matrix<T> operator* (const Matrix<T>& leftM, const T& rightEl);
 	private:
-		int m_Row, m_Col, m_Elements;
+		
 		T* m_matrixData;
+		int m_Row, m_Col, m_Elements;
 	};
 
 	template <class T>
@@ -165,7 +166,7 @@ namespace mt {
 	}
 
 	template <class T>
-	Matrix<T> operator+ (const const Matrix<T>& leftM, T& rightEl)
+	Matrix<T> operator+ (const Matrix<T>& leftM, const T& rightEl)
 	{
 		int nRows = leftM.m_Row;
 		int nCols = leftM.m_Col;
@@ -207,7 +208,7 @@ namespace mt {
 	}
 
 	template <class T>
-	Matrix<T> operator- (const const Matrix<T>& leftM, T& rightEl)
+	Matrix<T> operator- (const  Matrix<T>& leftM, const T& rightEl)
 	{
 		int nRows = leftM.m_Row;
 		int nCols = leftM.m_Col;
@@ -219,5 +220,71 @@ namespace mt {
 		delete[] temp;
 		return result;
 	}
+	template <class T>
+	Matrix<T> operator* (const T& leftEl, const Matrix<T>& rightM)
+	{
+		int nRow = rightM.m_Row;
+		int nCol = rightM.m_Col;
+		int numElements = nRow * nCol;
+		T* temp = new T[numElements];
+		for (int i = 0; i < numElements; ++i)
+			temp[i] = leftEl * rightM.m_matrixData[i];
+		Matrix<T> result(nRow, nCol, temp);
+		delete[] temp;
+		return result;
+	}
 
-}
+	template <class T>
+	Matrix<T> operator* (const Matrix<T>& leftM, const T& rightEl)
+	{
+		int nRow = leftM.m_Row;
+		int nCol = leftM.m_Col;
+		int numElements = nRow * nCol;
+		T* temp = new T[numElements];
+		for (int i = 0; i < numElements; ++i)
+			temp[i] = leftM.m_matrixData[i] * rightEl;
+		Matrix<T> result(nRow, nCol, temp);
+		delete[] temp;
+		return result;
+	}
+
+	template <class T>
+	Matrix<T> operator* (const Matrix<T>& leftM, const Matrix<T>& rightM)
+	{
+		int r_numRows = rightM.m_Row;
+		int r_numCols = rightM.m_Col;
+		int l_numRows = leftM.m_Row;
+		int l_numCols = leftM.m_Col;
+
+		if (l_numCols == r_numRows)
+		{
+			T* tempResult = new T[leftM.m_Row * rightM.m_Col];
+			// going through the rows
+			for (int i = 0; i < l_numRows; i++)
+			{
+				// going through the cols - result must be the same size as r and c
+				for (int j = 0; j < r_numCols; j++)
+				{
+					T elementResult = static_cast<T>(0.0);
+					// going through each element of leftM row
+					for (int k = 0; k < l_numCols; k++)
+					{
+						int leftMLinearIndex = (i * l_numCols) + k; // (row * numCols) + col
+						int rightMLinearIndex = (k * r_numCols) + j; // (row * numCols) + col
+						elementResult += (leftM.m_matrixData[leftLinearIndex] * rightM.m_matrixData[rightLinearIndex]); // sum of r and c
+					}
+					int resultIndex = (i * r_numCols) + j; // (row * numCols) + col
+					tempResult[resultIndex] = elementResult;
+				}
+			}
+			Matrix<T> result(l_numRows, r_numCols, tempResult);
+			delete[] tempResult;
+			return result;
+		}
+		else
+		{
+			Matrix<T> result(1, 1);
+			return result;
+		}
+	}
+} 
