@@ -1,5 +1,5 @@
 #include <iostream>
-#include "matrix.h"
+#include "inc/matrix.h"
 
 template <class T>
 void PrintMatrix(mt::Matrix<T> matrix)
@@ -17,18 +17,59 @@ void PrintMatrix(mt::Matrix<T> matrix)
 
 int main()
 {
-	// basic matrix constr text
-	int inputData1[16] = { 4, 3, 2, 6, 5, 4, 3, 2, 1, 6, 5, 4, 3, 2, 6, 7 };
+	int inputData1[16] = { 4, 3, 24, 3, 21, 4, 44, 32, 9, 2, 4, 5, 3, 4, 44, 3};
+	int inputData2[16] = { 4, 3, 4, 6, 44, 23, 11, 2, 6, 55, 43, 2, 12, 3, 24, 4 };
 	mt::Matrix<int> testMatrix1(4, 4, inputData1);
+	mt::Matrix<int> testMatrix2(4, 4, inputData2);
 	PrintMatrix(testMatrix1);
+
+	std::cout << std::endl;
+	PrintMatrix(testMatrix2);
 
 	std::cout << std::endl;
 	std::cout << "Matrix + Matrix test" << std::endl;
 	std::cout << std::endl;
-
-	// matrix + matrix
-	int inputData2[16] = { 4, 3, 2, 6, 5, 4, 3, 2, 1, 6, 54, 45, 36, 21, 62, 74 };
-	mt::Matrix<int> testMatrix2(4, 4, inputData2);
+	
 	PrintMatrix(testMatrix1 + testMatrix2);
 
+	std::cout << std::endl;
+	std::cout << "Matrix + num test" << std::endl;
+	std::cout << std::endl;
+	PrintMatrix(testMatrix1 + 4);
+
+	std::cout << std::endl;
+	std::cout << "num + Matrix test" << std::endl;
+	std::cout << std::endl;
+	PrintMatrix(4 + testMatrix1);
+
+	std::cout << std::endl;
+	std::cout << "Matrix - Matrix test" << std::endl;
+	std::cout << std::endl;
+	PrintMatrix(testMatrix1 - testMatrix2);
+
+	std::cout << std::endl;
+	std::cout << "Matrix - num test" << std::endl;
+	std::cout << std::endl;
+	PrintMatrix(testMatrix1 - 5);
+
+	std::cout << std::endl;
+	std::cout << "Num - matrix test" << std::endl;
+	std::cout << std::endl;
+	PrintMatrix(5 - testMatrix1);
+
+	std::cout << std::endl;
+	std::cout << "Matrix * num test" << std::endl;
+	std::cout << std::endl;
+	PrintMatrix(testMatrix1 * 5);
+
+	std::cout << std::endl;
+	std::cout << "Num * matrix test" << std::endl;
+	std::cout << std::endl;
+	PrintMatrix(5 * testMatrix1);
+
+	std::cout << std::endl;
+	std::cout << "Matrix * matrix test" << std::endl;
+	std::cout << std::endl;
+	PrintMatrix(testMatrix1 * testMatrix2);
+	
 }
