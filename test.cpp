@@ -71,5 +71,6 @@ int main()
 	std::cout << "Matrix * matrix test" << std::endl;
 	std::cout << std::endl;
 	PrintMatrix(testMatrix1 * testMatrix2);
-	
+
+	PrintMatrix(testMatrix1.FindSubMatrix(1, 1));
 }
