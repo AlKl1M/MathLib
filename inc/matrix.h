@@ -32,6 +32,7 @@ namespace mt {
 
 		bool operator== (const Matrix<T>& rightM);
 		Matrix<T> FindSubMatrix(int Row, int Col);
+		T Determinant();
 	private:
 		
 		T* m_matrixData;
@@ -323,4 +324,29 @@ namespace mt {
 		return subMatrix;
 	}
 
+	template <class T>
+	T Matrix<T>::Determinant()
+	{
+		if (m_Col != m_Row)
+		{
+			throw std::invalid_argument("matrix is not square => cant find the determinant");
+		}
+
+		T determinant;
+		if (m_Row == 2)
+		{
+			return (m_matrixData[0] * m_matrixData[3]) - (m_matrixData[1] * m_matrixData[2]);
+		}
+		T sum = 0.0;
+		T sign = 1.0;
+		for (int i = 0; i < m_Col; ++i)
+		{
+			Matrix<T> subMatrix = this->FindSubMatrix(0, i);
+			sum += sign * this->getElement(0, i) * subMatrix.Determinant(); // // -1^(r+c) * MINOR
+			sign = -sign;
+		}
+		determinant = sum;
+		return determinant;
+	}
+	
 } 
