@@ -33,6 +33,7 @@ namespace mt {
 		bool operator== (const Matrix<T>& rightM);
 		Matrix<T> FindSubMatrix(int Row, int Col);
 		T Determinant();
+		Matrix<T> transposition();
 	private:
 		
 		T* m_matrixData;
@@ -335,7 +336,7 @@ namespace mt {
 		T determinant;
 		if (m_Row == 2)
 		{
-			return (m_matrixData[0] * m_matrixData[3]) - (m_matrixData[1] * m_matrixData[2]);
+			return (m_matrixData[0] * m_matrixData[3]) - (m_matrixData[1] * m_matrixData[2]); // basic situation for 2x2
 		}
 		T sum = 0.0;
 		T sign = 1.0;
@@ -348,5 +349,20 @@ namespace mt {
 		determinant = sum;
 		return determinant;
 	}
-	
+
+	template <class T>
+	Matrix<T> Matrix<T>::transposition()
+	{
+		int n_Row = m_Row;
+		int n_Col = m_Col;;
+		Matrix<T> temp(n_Row, n_Col);
+		for (int i = 0; i < n_Row; i++)
+		{
+			for (int j = 0; j < n_Col; j++)
+			{
+				temp.SetElement(i, j, this->getElement(j, i));
+			}
+		}
+		return temp;
+	}
 } 
