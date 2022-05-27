@@ -29,6 +29,9 @@ namespace mt {
 		template <class T> friend Matrix<T> operator* (const Matrix<T>& leftM, const Matrix<T>& rightM);
 		template <class T> friend Matrix<T> operator* (const T& leftEl, const Matrix<T>& rightM);
 		template <class T> friend Matrix<T> operator* (const Matrix<T>& leftM, const T& rightEl);
+
+		bool operator== (const Matrix<T>& rightM);
+		Matrix<T> FindSubMatrix(int Row, int Col);
 	private:
 		
 		T* m_matrixData;
@@ -251,34 +254,34 @@ namespace mt {
 	template <class T>
 	Matrix<T> operator* (const Matrix<T>& leftM, const Matrix<T>& rightM)
 	{
-		int r_numRows = rightM.m_Row;
-		int r_numCols = rightM.m_Col;
-		int l_numRows = leftM.m_Row;
-		int l_numCols = leftM.m_Col;
+		int r_nRows = rightM.m_Row;
+		int r_nCols = rightM.m_Col;
+		int l_nRows = leftM.m_Row;
+		int l_nCols = leftM.m_Col;
 
-		if (l_numCols == r_numRows)
+		if (l_nCols == r_nRows)
 		{
-			T* tempResult = new T[leftM.m_Row * rightM.m_Col];
+			T* temp = new T[leftM.m_Row * rightM.m_Col];
 			// going through the rows
-			for (int i = 0; i < l_numRows; i++)
+			for (int i = 0; i < l_nRows; i++)
 			{
 				// going through the cols - result must be the same size as r and c
-				for (int j = 0; j < r_numCols; j++)
+				for (int j = 0; j < r_nCols; j++)
 				{
 					T elementResult = static_cast<T>(0.0);
 					// going through each element of leftM row
-					for (int k = 0; k < l_numCols; k++)
+					for (int k = 0; k < l_nCols; k++)
 					{
-						int leftMLinearIndex = (i * l_numCols) + k; // (row * numCols) + col
-						int rightMLinearIndex = (k * r_numCols) + j; // (row * numCols) + col
+						int leftLinearIndex = (i * l_nCols) + k; // (row * numCols) + col (r = 0; c = 0; numCols = 3 lI = 0)
+						int rightLinearIndex = (k * r_nCols) + j; // (row * numCols) + col
 						elementResult += (leftM.m_matrixData[leftLinearIndex] * rightM.m_matrixData[rightLinearIndex]); // sum of r and c
 					}
-					int resultIndex = (i * r_numCols) + j; // (row * numCols) + col
-					tempResult[resultIndex] = elementResult;
+					int resultIndex = (i * r_nCols) + j; // (row * numCols) + col
+					temp[resultIndex] = elementResult;
 				}
 			}
-			Matrix<T> result(l_numRows, r_numCols, tempResult);
-			delete[] tempResult;
+			Matrix<T> result(l_nRows, r_nCols, temp);
+			delete[] temp;
 			return result;
 		}
 		else
@@ -287,4 +290,37 @@ namespace mt {
 			return result;
 		}
 	}
+	template <class T>
+	bool Matrix<T>:: operator== (const Matrix<T>& rightM)
+	{
+		if ((this->m_Row != rightM.m_Col) && (this->m_Col != rightM.m_Col))
+			return false;
+		bool flag = true;
+		for (int i = 0; i < this->m_Elements; i++)
+		{
+			if (this->m_matrixData[i] != rightM.m_matrixData[i])
+				flag = false;
+		}
+		return flag;
+	}
+
+	template <class T>
+	Matrix<T> Matrix<T>::FindSubMatrix(int Row, int Col) 
+	{
+		Matrix<T> subMatrix(m_Row - 1, m_Col - 1);
+		int count = 0;
+		for (int i = 0; i < m_Row; i++)
+		{
+			for (int j = 0; j < m_Col; j++)
+			{
+				if ((i != Row) && (j != Col))
+				{
+					subMatrix.m_matrixData[count] = this->getElement(i, j);
+					count++;
+				}
+			}
+		}
+		return subMatrix;
+	}
+
 } 
