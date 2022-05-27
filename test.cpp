@@ -72,5 +72,15 @@ int main()
 	std::cout << std::endl;
 	PrintMatrix(testMatrix1 * testMatrix2);
 
+	std::cout << std::endl;
+	std::cout << "Submatrix test" << std::endl;
+	std::cout << std::endl;
+
 	PrintMatrix(testMatrix1.FindSubMatrix(1, 1));
+
+	std::cout << std::endl;
+	std::cout << "Determinant test" << std::endl;
+	std::cout << std::endl;
+
+	std::cout << testMatrix1.Determinant() << std::endl;
 }
