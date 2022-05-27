@@ -83,4 +83,10 @@ int main()
 	std::cout << std::endl;
 
 	std::cout << testMatrix1.Determinant() << std::endl;
+
+	std::cout << std::endl;
+	std::cout << "Transposition test" << std::endl;
+	std::cout << std::endl;
+
+	PrintMatrix(testMatrix1.transposition());
 }
