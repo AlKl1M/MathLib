@@ -89,4 +89,16 @@ int main()
 	std::cout << std::endl;
 
 	PrintMatrix(testMatrix1.transposition());
+
+	std::cout << std::endl;
+	std::cout << "Inverse test" << std::endl;
+	std::cout << std::endl;
+
+	double inverTestData2[9] = { 1.0 , 3.0, -5.0,
+	0.0, 1.0, 2.0,
+	0.0, 0.0, 1.0};
+	mt::Matrix<double> invertTest(3, 3, inverTestData2);
+	mt::Matrix<double> invertResult = invertTest;
+	invertResult.Inverse();
+	PrintMatrix(invertResult);
 }
