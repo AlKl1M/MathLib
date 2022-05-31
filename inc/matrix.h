@@ -248,6 +248,7 @@ namespace mt {
 		delete[] temp;
 		return result;
 	}
+
 	template <class T>
 	Matrix<T> operator* (const T& leftEl, const Matrix<T>& rightM)
 	{
@@ -315,6 +316,7 @@ namespace mt {
 			return result;
 		}
 	}
+
 	template <class T>
 	bool Matrix<T>:: operator== (const Matrix<T>& rightM)
 	{

@@ -12,4 +12,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 include_directories("/")
 
-add_executable("${PROJECT_NAME}" test.cpp inc/matrix.h)
+add_executable("${PROJECT_NAME}" test.cpp inc/matrix.h inc/vector.h)
