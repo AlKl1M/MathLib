@@ -101,4 +101,13 @@ int main()
 	mt::Matrix<double> invertResult = invertTest;
 	invertResult.Inverse();
 	PrintMatrix(invertResult);
+
+	std::cout << std::endl;
+	std::cout << "RowEchelon test" << std::endl;
+	std::cout << std::endl;
+
+	double testData3[16] = {3.0, 0.0, 1.0, -1.0, 1.0, 5.0, 1.0, 0.0, 0.0, 1.0, -1.0, -1.0, -1.0, 1.0, 1.0, 1.0};
+	mt::Matrix<double> testMatrix3(4, 4, testData3);
+	mt::Matrix<double> testRowEchelon = testMatrix3.RowEchelon();
+	PrintMatrix(testRowEchelon);
 }
