@@ -39,6 +39,7 @@ namespace mt {
 		bool Resize(int numRows, int numCols);
 		bool Inverse();
 		bool Separate(Matrix<T>& matrix1, Matrix<T>& matrix2, int colNum);
+		Matrix<T> RowEchelon();
 	private:
 		bool IsSquare();
 		bool CloseEnough(T f, T g);
@@ -50,6 +51,8 @@ namespace mt {
 		int FindRowWithMaxElement(int colNumber, int startingRow); // from starting row in colNumber it search max
 		void PrintMatrix();
 		void SetToIdentity();
+		bool isRowEchelon();
+		
 
 	private:
 		T* m_matrixData;
@@ -581,11 +584,13 @@ namespace mt {
 		// if matrix is square then we concat it with identity matrix
 		Join(identityMatrix);
 		int cRow, cCol;
+		// we use this maxCount to don't allow infinite cycle
 		int maxCount = 100;
 		int count = 0;
 		bool flag = false;
 		while ((!flag) && (count < maxCount))
 		{
+			// first we going though diagonals
 			for (int i = 0; i < m_Row; i++)
 			{
 				cRow = i;
@@ -656,5 +661,66 @@ namespace mt {
 			count++;
 		}
 		return flag;
+	}
+
+	template <class T>
+	bool Matrix<T>::isRowEchelon()
+	{
+		T sum = static_cast<T>(0.0);
+		for (int i = 0; i < m_Row; i++)
+		{
+			for (int j = 0; j < m_Col; j++)
+			{
+				sum += m_matrixData[Sub2Ind(i, j)];
+			}
+		}
+		return CloseEnough(sum, 0.0); // sum should be 0 because sum is out upper-diagonal elements
+	}
+	
+	template <class T>
+	Matrix<T> Matrix<T>::RowEchelon()
+	{
+		if (m_Col < m_Row)
+			throw std::invalid_argument("The matrix should have at least as many cols as rows");
+
+		T* temp;
+		temp = new T[m_Row * m_Col];
+		for (int i = 0; i < (m_Row * m_Col); i++)
+		{
+			temp[i] = m_matrixData[i];
+		}
+
+		int cRow, cCol;
+		int maxCount = 100; // we want to prevent infinite cycle
+		int count = 0;
+		bool flag = false;
+		while ((!flag) && (count < maxCount))
+		{
+			for (int i = 0; i < m_Row; i++)
+			{
+				cRow = i;
+				cCol = i;
+				int max = FindRowWithMaxElement(cCol, cRow);
+				// going through rows
+				for (int j = cRow + 1; j < m_Row; j++)
+				{
+					if (!CloseEnough(m_matrixData[Sub2Ind(j, cCol)], 0.0))
+					{
+						int rowIndex = cCol;
+						T currentEl = m_matrixData[Sub2Ind(j, cCol)];
+						T rowEl = m_matrixData[Sub2Ind(rowIndex, cCol)];
+						if (!CloseEnough(rowEl, 0.0))
+						{
+							T fix = -(currentEl / rowEl);
+							MultAdd(j, rowIndex, fix);
+						}
+					}
+				}
+			}
+			flag = this->isRowEchelon();
+			count++;
+		}
+		Matrix<T> result(m_Row, m_Col, m_matrixData);
+		return result;
 	}
 } 
