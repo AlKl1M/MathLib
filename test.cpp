@@ -1,5 +1,7 @@
 #include <iostream>
 #include "inc/matrix.h"
+#include "inc/vector.h"
+#include <vector>
 
 template <class T>
 void PrintMatrix(mt::Matrix<T> matrix)
@@ -13,6 +15,14 @@ void PrintMatrix(mt::Matrix<T> matrix)
 		}
 	std::cout << std::endl;
 	}
+}
+
+template <class T>
+void PrintVector(mt::Vector<T> input)
+{
+	int n_D = input.getNumDims();
+	for (int i = 0; i < n_D; i++)
+		std::cout << input.GetElement(i) << std::endl;
 }
 
 int main()
@@ -110,4 +120,38 @@ int main()
 	mt::Matrix<double> testMatrix3(4, 4, testData3);
 	mt::Matrix<double> testRowEchelon = testMatrix3.RowEchelon();
 	PrintMatrix(testRowEchelon);
+
+	std::cout << std::endl;
+	std::cout << "Vector creation test" << std::endl;
+	std::cout << std::endl;
+
+	std::vector<double> testData4 = { 13.0, 9.0, -6.0};
+	mt::Vector<double> bVec{ testData4 };
+	PrintVector(bVec);
+
+	std::cout << std::endl;
+	std::cout << "Vector creation test" << std::endl;
+	std::cout << std::endl;
+
+	std::vector<double> testData5 = { 4.0, 2.0, -4.0 };
+	mt::Vector<double> cVec{ testData5 };
+	PrintVector(cVec);
+
+	std::cout << std::endl;
+	std::cout << "Vector + vector test" << std::endl;
+	std::cout << std::endl;
+
+	PrintVector(bVec + cVec);
+
+	std::cout << std::endl;
+	std::cout << "Vector - vector test" << std::endl;
+	std::cout << std::endl;
+
+	PrintVector(bVec - cVec);
+
+	std::cout << std::endl;
+	std::cout << "Vector * num test" << std::endl;
+	std::cout << std::endl;
+
+	PrintVector(bVec * 4);
 }
