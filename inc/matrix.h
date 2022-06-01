@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <stdexcept>û
 
 namespace mt {
 	template <class T>
