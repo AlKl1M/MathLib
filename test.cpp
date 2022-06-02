@@ -1,6 +1,7 @@
 #include <iostream>
 #include "inc/matrix.h"
 #include "inc/vector.h"
+#include "inc/LinEq.h"
 #include <vector>
 
 template <class T>
@@ -154,4 +155,47 @@ int main()
 	std::cout << std::endl;
 
 	PrintVector(bVec * 4);
+
+	std::cout << std::endl;
+	std::cout << "SLAU test" << std::endl;
+	std::cout << std::endl;
+
+
+	std::cout << std::endl;
+	std::cout << "ORIGINAL" << std::endl;
+	std::cout << std::endl;
+
+	double simpleData[12] = {1.0, 3.0, -1.0, 13.0, 4.0, -1.0, 1.0, 9.0, 2.0, 4.0, 3.0, -6.0};
+	mt::Matrix<double> testMatrix4(3, 4, simpleData);
+	PrintMatrix(testMatrix4);
+
+	std::cout << std::endl;
+	std::cout << "ROW ECHELONE TEST" << std::endl;
+	std::cout << std::endl;
+
+	mt::Matrix<double> rowEchelonTest = testMatrix4.RowEchelon();
+	PrintMatrix(rowEchelonTest);
+
+	std::cout << std::endl;
+	std::cout << "AX = B WHERE A EQUAL TO" << std::endl;
+	std::cout << std::endl;
+
+	double simpleData2[9] = { 1.0, 3.0, -1.0, 4.0, -1.0, 1.0, 2.0, 4.0, 3.0 };
+	mt::Matrix<double> aMat(3, 3, simpleData2);
+	PrintMatrix(aMat);
+
+	std::cout << std::endl;
+	std::cout << "AX = B WHERE B EQUAL TO" << std::endl;
+	std::cout << std::endl;
+
+	std::vector<double> vectorData{ 13.0, 9.0, -6.0 };
+	mt::Vector<double> gVec{ vectorData };
+	PrintVector(gVec);
+
+	std::cout << std::endl;
+	std::cout << "SO FINAL LIN SOLVE LOOKS LIKE" << std::endl;
+	std::cout << std::endl;
+
+	mt::Vector<double> tResult = LinSolve<double>(&aMat, &gVec);
+	PrintVector(tResult);
 }
