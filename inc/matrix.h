@@ -2,7 +2,9 @@
 
 #include <iostream>
 #include <vector>
-#include <stdexcept>û
+#include <stdexcept>
+
+#include "inc/vector.h"
 
 namespace mt {
 	template <class T>
@@ -41,13 +43,13 @@ namespace mt {
 		bool Inverse();
 		bool Separate(Matrix<T>& matrix1, Matrix<T>& matrix2, int colNum);
 		Matrix<T> RowEchelon();
+		bool Join(const Matrix<T>& matrix2); // concatination
 	private:
 		bool IsSquare();
 		bool CloseEnough(T f, T g);
 		void SwapRow(int i, int j);
 		void MultAdd(int i, int j, T multFactor); // j * multFactor + i
 		void MultRow(int i, T multFactor);  // i * multFactor
-		bool Join(const Matrix<T>& matrix2); // concatination
 		int Sub2Ind(int row, int col) const;
 		int FindRowWithMaxElement(int colNumber, int startingRow); // from starting row in colNumber it search max
 		void PrintMatrix();
