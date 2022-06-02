@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <stdexcept>
+#include "inc/matrix.h"
 
 namespace mt {
 
@@ -106,4 +107,5 @@ namespace mt {
 		 Vector<T> result(resultV);
 		 return resultV;
 	 }
+
 }
