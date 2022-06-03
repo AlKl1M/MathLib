@@ -4,35 +4,27 @@
 #include "inc/LinEq.h"
 #include <vector>
 
-template <class T>
-void PrintMatrix(mt::Matrix<T> matrix)
-{
-	int n_R = matrix.GetNumRows();
-	int n_C = matrix.GetNumCols();
-	for (int i = 0; i < n_R; i++) {
-		for (int j = 0; j < n_C; j++)
-		{
-			std::cout << matrix.getElement(i, j) << " ";
-		}
-	std::cout << std::endl;
-	}
-}
-
-template <class T>
-void PrintVector(mt::Vector<T> input)
-{
-	int n_D = input.getNumDims();
-	for (int i = 0; i < n_D; i++)
-		std::cout << input.GetElement(i) << std::endl;
-}
-
 int main()
 {
-	int inputData1[16] = { 4, 3, 24, 3, 21, 4, 44, 32, 9, 2, 4, 5, 3, 4, 44, 3};
-	int inputData2[16] = { 4, 3, 4, 6, 44, 23, 11, 2, 6, 55, 43, 2, 12, 3, 24, 4 };
+	int inputData1[16] = { 4, 3, 24, 3, 
+		21, 4, 44, 32, 
+		9, 2, 4, 5, 
+		3, 4, 44, 3};
+	int inputData2[16] = { 4, 3, 4, 6, 
+		44, 23, 11, 2, 
+		6, 55, 43, 2, 
+		12, 3, 24, 4 };
 	mt::Matrix<int> testMatrix1(4, 4, inputData1);
 	mt::Matrix<int> testMatrix2(4, 4, inputData2);
 	
+	std::cout << std::endl;
+	std::cout << "Matrix1" << std::endl;
+	std::cout << std::endl;
+
+	std::cout << testMatrix1 << std::endl;
+
+	std::cout << std::endl;
+	std::cout << "Matrix2" << std::endl;
 	std::cout << std::endl;
 	std::cout << testMatrix2 << std::endl;
 
@@ -116,7 +108,10 @@ int main()
 	std::cout << "RowEchelon test" << std::endl;
 	std::cout << std::endl;
 
-	double testData3[16] = {3.0, 0.0, 1.0, -1.0, 1.0, 5.0, 1.0, 0.0, 0.0, 1.0, -1.0, -1.0, -1.0, 1.0, 1.0, 1.0};
+	double testData3[16] = {3.0, 0.0, 1.0, -1.0, 
+		1.0, 5.0, 1.0, 0.0, 
+		0.0, 1.0, -1.0, -1.0,
+		-1.0, 1.0, 1.0, 1.0};
 	mt::Matrix<double> testMatrix3(4, 4, testData3);
 	mt::Matrix<double> testRowEchelon = testMatrix3.RowEchelon();
 	std::cout << testRowEchelon << std::endl;
@@ -164,7 +159,10 @@ int main()
 	std::cout << "ORIGINAL" << std::endl;
 	std::cout << std::endl;
 
-	double simpleData[12] = {1.0, 3.0, -1.0, 13.0, 4.0, -1.0, 1.0, 9.0, 2.0, 4.0, 3.0, -6.0};
+	double simpleData[12] = {1.0, 3.0, -1.0, 
+		13.0, 4.0, -1.0, 
+		1.0, 9.0, 2.0, 
+		4.0, 3.0, -6.0};
 	mt::Matrix<double> testMatrix4(3, 4, simpleData);
 	std::cout << testMatrix4 << std::endl;
 
@@ -180,7 +178,9 @@ int main()
 	std::cout << "AX = B WHERE A EQUAL TO" << std::endl;
 	std::cout << std::endl;
 
-	double simpleData2[9] = { 4.0, 3.0, -7.0, 6.0, -5.0, 1.0, 2.0, 42.0, 3.0 };
+	double simpleData2[9] = { 4.0, 3.0, -7.0, 
+		6.0, -5.0, 1.0,
+		2.0, 42.0, 3.0 };
 	mt::Matrix<double> aMat(3, 3, simpleData2);
 	std::cout << aMat << std::endl;
 
@@ -208,7 +208,9 @@ int main()
 	std::cout << "AX = B WHERE A EQUAL TO" << std::endl;
 	std::cout << std::endl;
 
-	double mattest2[9] = { 4.0, -3.0, 18.0, 2.0, 1.0, 6.0, 1.0, -1.0, 5.0 };
+	double mattest2[9] = { 4.0, -3.0, 18.0, 
+		2.0, 1.0, 6.0, 
+		1.0, -1.0, 5.0 };
 	mt::Matrix<double> testMatrix5(3, 3, mattest2);
 	std::cout << testMatrix5 << std::endl;
 	
