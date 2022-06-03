@@ -35,6 +35,8 @@ namespace mt {
 		template <class T> friend Matrix<T> operator* (const T& leftEl, const Matrix<T>& rightM);
 		template <class T> friend Matrix<T> operator* (const Matrix<T>& leftM, const T& rightEl);
 
+		template <class T> friend std::ostream& operator<< (std::ostream& out, const Matrix<T>& matrix);
+
 		bool operator== (const Matrix<T>& rightM);
 		Matrix<T> FindSubMatrix(int Row, int Col);
 		T Determinant();
@@ -50,14 +52,11 @@ namespace mt {
 		void SwapRow(int i, int j);
 		void MultAdd(int i, int j, T multFactor); // j * multFactor + i
 		void MultRow(int i, T multFactor);  // i * multFactor
-		int Sub2Ind(int row, int col) const;
 		int FindRowWithMaxElement(int colNumber, int startingRow); // from starting row in colNumber it search max
-		void PrintMatrix();
 		void SetToIdentity();
 		bool isRowEchelon();
-		
-
-	private:
+		int Sub2Ind(int row, int col) const;
+	
 		T* m_matrixData;
 		int m_Row, m_Col, m_Elements;
 	};
@@ -74,7 +73,7 @@ namespace mt {
 
 	// Rows x Columns matrix with all zeros
 	template <class T>
-	Matrix<T>::Matrix(int Row, int Col) 
+	Matrix<T>::Matrix(int Row, int Col)
 	{
 		m_Row = Row;
 		m_Col = Col;
@@ -143,7 +142,7 @@ namespace mt {
 
 	// Setter
 	template <class T>
-	bool Matrix<T>::SetElement(int Row, int Col, T value) 
+	bool Matrix<T>::SetElement(int Row, int Col, T value)
 	{
 		int l = Sub2Ind(Row, Col);
 
@@ -727,5 +726,18 @@ namespace mt {
 		}
 		Matrix<T> result(m_Row, m_Col, m_matrixData);
 		return result;
+	}
+
+	template <class T>
+	std::ostream& operator<< (std::ostream& out, const Matrix<T>& matrix)
+	{
+		for (int i = 0; i < matrix.m_Row; i++)
+		{
+			for (int j = 0; j < matrix.m_Col; j++) {
+				out << matrix.m_matrixData[i * matrix.m_Col + j] << " ";
+			}
+			out << std::endl;
+		}
+		return out;
 	}
 } 
