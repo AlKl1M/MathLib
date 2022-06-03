@@ -21,6 +21,8 @@ namespace mt {
 		Vector<T> operator- (const Vector<T>& v) const;
 		Vector<T> operator* (const T& element) const;
 
+		template <class T> friend std::ostream& operator<< (std::ostream& out, const Vector<T>& vector);
+
 	private:
 		int m_Dim;
 		std::vector<T> m_vectorData;
@@ -106,6 +108,14 @@ namespace mt {
 			 resultV.push_back(m_vectorData.at(i) * element);
 		 Vector<T> result(resultV);
 		 return resultV;
+	 }
+
+	 template <class T>
+	 std::ostream& operator<< (std::ostream& out, const Vector<T>& vector)
+	 {
+		 for (int i = 0; i < vector.m_Dim; i++)
+			 out << vector.m_vectorData[i] << " ";
+		 return out;
 	 }
 
 }
