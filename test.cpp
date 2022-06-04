@@ -151,12 +151,12 @@ int main()
 	std::cout << bVec * 4 << std::endl;
 
 	std::cout << std::endl;
-	std::cout << "SLAU test" << std::endl;
+	std::cout << "slau test" << std::endl;
 	std::cout << std::endl;
 
 
 	std::cout << std::endl;
-	std::cout << "ORIGINAL" << std::endl;
+	std::cout << "original matrix" << std::endl;
 	std::cout << std::endl;
 
 	double simpleData[12] = {1.0, 3.0, -1.0, 
@@ -167,15 +167,15 @@ int main()
 	std::cout << testMatrix4 << std::endl;
 
 	std::cout << std::endl;
-	std::cout << "ROW ECHELONE TEST" << std::endl;
+	std::cout << "row echelone test" << std::endl;
 	std::cout << std::endl;
 
 	mt::Matrix<double> rowEchelonTest = testMatrix4.RowEchelon();
 	std::cout << rowEchelonTest << std::endl;
 
 	std::cout << std::endl;
-	std::cout << "SLAU 1 TEST" << std::endl;
-	std::cout << "AX = B WHERE A EQUAL TO" << std::endl;
+	std::cout << "slau 1 test" << std::endl;
+	std::cout << "ax = b where a: " << std::endl;
 	std::cout << std::endl;
 
 	double simpleData2[9] = { 4.0, 3.0, -7.0, 
@@ -185,7 +185,7 @@ int main()
 	std::cout << aMat << std::endl;
 
 	std::cout << std::endl;
-	std::cout << "AX = B WHERE B EQUAL TO" << std::endl;
+	std::cout << "ax = b where b: " << std::endl;
 	std::cout << std::endl;
 
 	std::vector<double> vectorData{ 4.0, 3.0, -6.0 };
@@ -193,29 +193,29 @@ int main()
 	std::cout << gVec << std::endl;
 
 	std::cout << std::endl;
-	std::cout << "SO FINAL LIN SOLVE LOOKS LIKE" << std::endl;
+	std::cout << "so final answer: " << std::endl;
 	std::cout << std::endl;
 
 	mt::Vector<double> tResult = LinSolve<double>(&aMat, &gVec);
 	std::cout << tResult << std::endl;
 
 	std::cout << std::endl;
-	std::cout << "SLAU 1 TEST" << std::endl;
+	std::cout << "slau 2 test" << std::endl;
 	std::cout << std::endl;
 
 	std::cout << std::endl;
-	std::cout << "SLAU 1 TEST" << std::endl;
-	std::cout << "AX = B WHERE A EQUAL TO" << std::endl;
+	std::cout << "slau 2 test" << std::endl;
+	std::cout << "ax = b where a: " << std::endl;
 	std::cout << std::endl;
 
 	double mattest2[9] = { 4.0, -3.0, 18.0, 
 		2.0, 1.0, 6.0, 
 		1.0, -1.0, 5.0 };
-	mt::Matrix<double> testMatrix5(3, 3, mattest2);
-	std::cout << testMatrix5 << std::endl;
+	mt::Matrix<double> aMat2(3, 3, mattest2);
+	std::cout << aMat2 << std::endl;
 	
 	std::cout << std::endl;
-	std::cout << "AX = B WHERE B EQUAL TO" << std::endl;
+	std::cout << "ax = b where b: " << std::endl;
 	std::cout << std::endl;
 
 	std::vector<double> vectorData2{ 45.0, 19.0, 12.0 };
@@ -223,9 +223,9 @@ int main()
 	std::cout << eVec << std::endl;
 
 	std::cout << std::endl;
-	std::cout << "SO FINAL LIN SOLVE LOOKS LIKE" << std::endl;
+	std::cout << "so final answer: " << std::endl;
 	std::cout << std::endl;
 
-	mt::Vector<double> tResult2 = LinSolve<double>(&testMatrix5, &eVec);
+	mt::Vector<double> tResult2 = LinSolve<double>(&aMat2, &eVec);
 	std::cout << tResult2 << std::endl;
 }
